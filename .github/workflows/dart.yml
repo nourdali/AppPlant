@@ -1,0 +1,33 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Dart
+
+on:
+  push:
+    branches: [ "nour" ]
+  pull_request:
+    branches: [ "nour" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container:
+      image: google/dart:latest
+
+    steps:
+    - name: Clone repository
+      uses: actions/checkout@v4
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 3.27.1
+    - run: flutter pub get
+    - run: flutter test
+    - run: flutter build apk
+    - run: flutter build appbundle
+     
+
